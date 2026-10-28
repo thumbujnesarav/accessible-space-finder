@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accessible Public Space Finder · Mandya</title>
+  <meta name="description" content="Find parks, libraries, community centres and public toilets in Mandya with ramps, wheelchair access, lighting, seating and toilets." />
+  <!-- Leaflet: free, open-source map library (draws the OpenStreetMap map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css/style.css" />
+</head>
+<body>
+  <!-- Keyboard users can jump straight past the filters -->
+  <a class="skip-link" href="#results" data-t="skip">Skip to results</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">♿</span>
+      <div>
+        <h1 data-t="title">Accessible Public Space Finder</h1>
+        <p class="subtitle" data-t="subtitle">Parks, libraries, community centres and public toilets in Mandya</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span id="data-badge" class="badge" role="status"></span>
+      <button id="lang-btn" class="btn btn-ghost" type="button" lang="kn">ಕನ್ನಡ</button>
+      <button id="contrast-btn" class="btn btn-ghost" type="button" aria-pressed="false">High contrast: off</button>
+    </div>
+  </header>
+
+  <!-- Honest warning: this is sample data -->
+  <p class="notice" data-t="notice"></p>
+
+  <main class="layout">
+    <!-- ===================== FILTERS ===================== -->
+    <section class="filters" aria-label="Search and filters">
+      <label class="field-label" for="search" data-t="searchLabel">Search by name or area</label>
+      <input id="search" type="search" autocomplete="off" />
+
+      <fieldset>
+        <legend class="field-label" data-t="typeLabel">Type of place</legend>
+        <div id="category-chips" class="chips"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="field-label" data-t="featuresLabel">Must have</legend>
+        <div id="feature-boxes" class="checks"></div>
+      </fieldset>
+
+      <div class="sort-row">
+        <label class="field-label" for="sort" data-t="sortLabel">Sort by</label>
+        <select id="sort">
+          <option value="name" data-t="sortName">Name (A–Z)</option>
+          <option value="accessible" data-t="sortAccessible">Most accessible</option>
+          <option value="nearest" data-t="sortNearest">Nearest to me</option>
+        </select>
+        <button id="near-btn" class="btn" type="button" data-t="nearMe">📍 Use my location</button>
+        <span id="loc-status" class="small" role="status"></span>
+      </div>
+
+      <button id="clear-btn" class="btn btn-ghost" type="button" data-t="clear">Clear filters</button>
+    </section>
+
+    <!-- ===================== RESULTS + MAP ===================== -->
+    <section class="results-area">
+      <p id="count" class="count" aria-live="polite"></p>
+      <div class="split">
+        <ul id="results" class="results" tabindex="-1"></ul>
+        <div class="map-wrap">
+          <div id="map" role="region" aria-label="Map of places"></div>
+          <p class="small" data-t="mapNote"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p data-t="footer"></p></footer>
+
+  <!-- Scripts load in this order: map library, then our files -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js/config.js"></script>
+<script src="script.js/data.js"></script>
+<script src="script.js/i18n.js"></script>
+<script src="script.js/search.js"></script>
+<script src="script.js/app.js"></script>
+</body>
+</html>
