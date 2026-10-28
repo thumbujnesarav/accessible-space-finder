@@ -1,0 +1,145 @@
+/* =====================================================================
+   style.css: how the website LOOKS.
+   Colours are kept as "variables" at the top, so high-contrast mode
+   only has to change these few lines.
+   ===================================================================== */
+:root {
+  --bg: #f6f7f4;
+  --surface: #ffffff;
+  --text: #1d2521;
+  --muted: #55605a;
+  --line: #d9ded9;
+  --accent: #0b6e4f;        /* main green */
+  --accent-text: #ffffff;
+  --yes-bg: #e3f4ea;  --yes-text: #145c32;
+  --part-bg: #fff3d6; --part-text: #7a4b00;
+  --no-bg: #eef0ee;   --no-text: #5d6660;
+  --focus: #ffbf47;
+  --radius: 12px;
+}
+
+/* High-contrast mode: black background, yellow and white text */
+body.hc {
+  --bg: #000; --surface: #000; --text: #fff; --muted: #fff; --line: #fff;
+  --accent: #ffde00; --accent-text: #000;
+  --yes-bg: #000; --yes-text: #7dffa1;
+  --part-bg: #000; --part-text: #ffde00;
+  --no-bg: #000; --no-text: #fff;
+  --focus: #00e5ff;
+}
+body.hc .tag, body.hc .card, body.hc .chip, body.hc input, body.hc select { border: 2px solid var(--line); }
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", "Nirmala UI", "Noto Sans Kannada", Roboto, sans-serif;
+  font-size: 17px;           /* a bit bigger than default: easier to read */
+  line-height: 1.5;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* A thick, clear outline shows where the keyboard is */
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.skip-link { position: absolute; left: -999px; top: 8px; background: var(--accent); color: var(--accent-text); padding: 8px 12px; border-radius: 8px; z-index: 2000; }
+.skip-link:focus { left: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Header ---------- */
+.site-header {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
+  padding: 14px 16px; background: var(--accent); color: var(--accent-text);
+}
+.brand { display: flex; gap: 12px; align-items: center; }
+.logo { font-size: 2rem; background: var(--accent-text); color: var(--accent); width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; }
+h1 { margin: 0; font-size: 1.2rem; line-height: 1.2; }
+@media (min-width: 600px) { h1 { font-size: 1.35rem; } }
+.subtitle { margin: 2px 0 0; font-size: .92rem; opacity: .92; }
+.header-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.badge { font-size: .8rem; padding: 4px 10px; border-radius: 999px; border: 1px solid currentColor; }
+.site-header .btn-ghost { color: var(--accent-text); border-color: var(--accent-text); }
+
+.notice {
+  margin: 0; padding: 10px 16px; font-size: .9rem;
+  background: var(--part-bg); color: var(--part-text); border-bottom: 1px solid var(--line);
+}
+
+/* ---------- Buttons and inputs ---------- */
+.btn {
+  font: inherit; font-size: .95rem; cursor: pointer; min-height: 44px; /* big enough to tap */
+  padding: 8px 14px; border-radius: 10px; border: 2px solid var(--accent);
+  background: var(--accent); color: var(--accent-text); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-ghost { background: transparent; color: var(--accent); }
+.btn-small { min-height: 40px; padding: 6px 12px; font-size: .9rem; }
+input[type="search"], select {
+  font: inherit; width: 100%; min-height: 46px; padding: 8px 12px;
+  border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text);
+}
+
+/* ---------- Page layout ---------- */
+.layout { display: grid; gap: 16px; padding: 16px; max-width: 1400px; margin: 0 auto; }
+.filters { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 14px; align-content: start; }
+fieldset { border: 0; margin: 0; padding: 0; }
+.field-label { display: block; font-weight: 700; margin-bottom: 6px; padding: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: inherit; font-size: .92rem; cursor: pointer; min-height: 44px; padding: 6px 12px;
+  border-radius: 999px; border: 2px solid var(--line); background: var(--surface); color: var(--text);
+}
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 700; }
+.checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.check { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 10px; border: 2px solid var(--line); border-radius: 10px; cursor: pointer; }
+.check input { width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--accent); }
+.check:has(input:checked) { border-color: var(--accent); font-weight: 700; }
+.sort-row { display: grid; gap: 8px; }
+.small { font-size: .88rem; color: var(--muted); margin: 4px 0; }
+.count { font-weight: 700; margin: 0 0 10px; }
+
+.split { display: grid; gap: 16px; }
+.results { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; align-content: start; }
+.results:focus { outline: none; }
+
+/* ---------- Result cards ---------- */
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--cat);
+  border-radius: var(--radius); padding: 14px; scroll-margin: 12px;
+}
+.card.active { box-shadow: 0 0 0 3px var(--focus); }
+.card-top { display: flex; gap: 10px; align-items: flex-start; }
+.cat-icon { font-size: 1.6rem; line-height: 1; }
+.card-title { flex: 1; min-width: 0; }
+.card h2 { margin: 0; font-size: 1.08rem; }
+.score { font-size: .8rem; font-weight: 700; white-space: nowrap; padding: 3px 8px; border-radius: 999px; background: var(--yes-bg); color: var(--yes-text); }
+.dist { font-weight: 700; color: var(--text); }
+.tags { list-style: none; padding: 0; margin: 10px 0 6px; display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: .84rem; padding: 3px 9px; border-radius: 8px; }
+.tag.yes { background: var(--yes-bg); color: var(--yes-text); font-weight: 600; }
+.tag.part { background: var(--part-bg); color: var(--part-text); }
+.tag.no { background: var(--no-bg); color: var(--no-text); text-decoration: line-through; }
+.src { font-weight: 600; }
+.card-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.empty { padding: 20px; background: var(--surface); border: 2px dashed var(--line); border-radius: var(--radius); }
+
+/* ---------- Map ---------- */
+#map { height: 380px; border-radius: var(--radius); border: 1px solid var(--line); background: #dfe7df; }
+.map-off { padding: 20px; }
+.pin span {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); font-size: 16px;
+}
+body.hc .leaflet-tile-pane { filter: grayscale(1) contrast(1.2); }
+
+.site-footer { text-align: center; padding: 16px; }
+
+/* ---------- Bigger screens: filters on the left, list + map side by side ---------- */
+@media (min-width: 900px) {
+  .layout { grid-template-columns: 320px 1fr; }
+  .filters { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }
+  .split { grid-template-columns: minmax(340px, 1fr) 1.1fr; }
+  .map-wrap { position: sticky; top: 16px; align-self: start; }
+  #map { height: calc(100vh - 140px); min-height: 420px; }
+  .results { max-height: none; }
+}
